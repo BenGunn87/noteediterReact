@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View: EditForm</title>
+    <script src="../../dist/toolkit.js"></script>
+</head>
+<body>
+
+    <div class="js-edit-form"></div>
+
+    <script>
+      (function () {
+        'use strict';
+          const editNote = {
+              title: 'Заголовк Р',
+              noteText: 'Текст заголовка'
+          };
+          ReactDOM.render(
+              <EditForm editNote={editNote}/>,
+              document.getElementById('root')
+          );
+      })();
+
+    </script>
+
+</body>
+</html>

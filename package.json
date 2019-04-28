@@ -1,0 +1,51 @@
+{
+  "name": "noteediterreact",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack-cli --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BenGunn87/noteEditerReact.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BenGunn87/noteEditerReact/issues"
+  },
+  "homepage": "https://github.com/BenGunn87/noteEditerReact#readme",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react-app": "^3.1.2",
+    "css-loader": "^1.0.0",
+    "eslint": "^5.16.0",
+    "eslint-plugin-css-modules": "^2.11.0",
+    "eslint-plugin-node": "^7.0.0",
+    "eslint-plugin-promise": "^4.0.0",
+    "eslint-plugin-standard": "^4.0.0",
+    "node-sass": "^4.9.3",
+    "pre-commit": "^1.2.2",
+    "pug": "^2.0.3",
+    "pug-loader": "^2.4.0",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "sass-loader": "^7.0.3",
+    "scss": "^0.2.4",
+    "static-server": "^2.2.1",
+    "style-loader": "^0.21.0",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
+  },
+  "pre-commit": [
+    "lint"
+  ],
+  "devDependencies": {
+    "eslint-plugin-import": "^2.17.1"
+  }
+}
