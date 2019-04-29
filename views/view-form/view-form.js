@@ -12,17 +12,25 @@ export class ViewForm extends React.Component {
     const viewCard = this.props.viewCard;
     const btnFirst = {
       id: 'btnAdd',
-      value: '+'
+      value: 'Создать',
+      onClick: this.props.onBtnAddClick
     };
     const btnSecond = {
       id: 'btnDel',
-      value: '-'
+      value: 'Удалить',
+      onClick: this.props.onBtnDelClick
     };
     return (
       <div className="view-form">
         <div className={'row heightAll'}>
           <div className={'col col--4 view-form__note-card-list heightAll'}>
-            <NoteCardList notes={this.props.notes}/>
+            <NoteCardList
+              notes={this.props.notes}
+              selectedNoteId={this.props.selectedNoteId}
+              onSearchChange={this.props.onSearchChange}
+              onNoteCardClick={this.props.onNoteCardClick}
+              onNoteCardDoubleClick={this.props.onNoteCardDoubleClick}
+            />
           </div>
           <div className={'col col--8 heightAll'}>
             <div className="view-form__buttonspanel">

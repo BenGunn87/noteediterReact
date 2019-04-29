@@ -1,28 +1,134 @@
 import React from 'react'
 import {ViewForm} from '../view-form/view-form'
 import {EditForm} from '../edit-form/edit-form'
+import {NoteList} from '../../model/notelist'
 
 /* eslint-disable */
 import _ from './main-form.scss';
 /* eslint-enable */
 
 export class MainForm extends React.Component {
+  constructor (props) {
+    super(props);
+    this.noteList = new NoteList();
+    this.state = {
+      activeForm: 'view',
+      searchStr: '',
+      notes: this.noteList.noteList,
+      selectedNoteId: -1
+    };
+    this.onBtnAddClick = this.onBtnAddClick.bind(this);
+    this.onBtnBackClick = this.onBtnBackClick.bind(this);
+    this.onBtnSaveClick = this.onBtnSaveClick.bind(this);
+    this.onBtnDelClick = this.onBtnDelClick.bind(this);
+    this.onSearchChange = this.onSearchChange.bind(this);
+    this.onNoteCardClick = this.onNoteCardClick.bind(this);
+    this.onNoteCardDoubleClick = this.onNoteCardDoubleClick.bind(this);
+  }
+  onNoteCardClick (noteid) {
+    this.setState({ selectedNoteId: noteid });
+  }
+  onNoteCardDoubleClick (noteid) {
+    this.setState({
+      selectedNoteId: noteid,
+      activeForm: 'edit'
+    });
+  }
+  onBtnAddClick (event) {
+    this.setState({ activeForm: 'add' });
+  }
+  onBtnBackClick (event) {
+    this.setState({ activeForm: 'view' });
+  }
+  onBtnSaveClick (event, title, noteText) {
+    let noteid;
+    if (this.state.activeForm === 'add') {
+      const newNote = this.noteList.addNote({
+        title: title,
+        noteText: noteText
+      });
+      noteid = newNote.noteid;
+    }
+    if (this.state.activeForm === 'edit') {
+      this.noteList.updNote({
+        noteid: this.state.selectedNoteId,
+        title: title,
+        noteText: noteText
+      });
+      noteid = this.state.selectedNoteId;
+    }
+    this.setState({
+      activeForm: 'view',
+      notes: this.noteList.noteList,
+      selectedNoteId: noteid
+    });
+  }
+  onBtnDelClick (event) {
+    if (this.state.selectedNoteId === -1) return;
+    this.noteList.delNote(this.state.selectedNoteId);
+    this.setState({
+      notes: this.noteList.noteList,
+      selectedNoteId: -1
+    });
+  }
+  onSearchChange (event) {
+    this.setState({
+      searchStr: event.target.value,
+      selectedNoteId: -1
+    });
+  }
   render () {
     let activeForm;
-    if (this.props.activeForm === 'view') {
-      const viewForm = this.props.viewForm;
-      activeForm = <ViewForm viewCard={viewForm.viewCard} notes={viewForm.notes}/>;
+    // форма простомтка
+    if (this.state.activeForm === 'view') {
+      let viewCard;
+      if (this.state.selectedNoteId !== -1) {
+        const index = this.noteList.searchNote(this.state.selectedNoteId);
+        viewCard = this.noteList.noteList[index];
+      } else {
+        viewCard = {
+          title: '',
+          noteText: ''
+        }
+      }
+      const notes = this.state.notes.filter((item) => {
+        return (
+          item.title.toUpperCase().indexOf(this.state.searchStr.toUpperCase()) !== -1 ||
+          item.noteText.toUpperCase().indexOf(this.state.searchStr.toUpperCase()) !== -1
+        );
+      });
+      activeForm = <ViewForm
+        viewCard={viewCard}
+        notes={notes}
+        selectedNoteId={this.state.selectedNoteId}
+        onBtnAddClick={this.onBtnAddClick}
+        onBtnDelClick={this.onBtnDelClick}
+        onSearchChange={this.onSearchChange}
+        onNoteCardClick={this.onNoteCardClick}
+        onNoteCardDoubleClick={this.onNoteCardDoubleClick}
+      />;
     }
-    if (this.props.activeForm === 'edit') {
-      const editNote = this.props.editNote;
-      activeForm = <EditForm editNote={editNote}/>;
+    // форма редактирования
+    if (this.state.activeForm === 'edit') {
+      const index = this.noteList.searchNote(this.state.selectedNoteId);
+      const editNote = this.noteList.noteList[index];
+      activeForm = <EditForm
+        editNote={editNote}
+        onBtnSaveClick={this.onBtnSaveClick}
+        onBtnBackClick={this.onBtnBackClick}
+      />;
     }
-    if (this.props.activeForm === 'add') {
+    // форма добавления
+    if (this.state.activeForm === 'add') {
       const editNote = {
         title: '',
         noteText: ''
       };
-      activeForm = <EditForm editNote={editNote}/>;
+      activeForm = <EditForm
+        editNote={editNote}
+        onBtnBackClick={this.onBtnBackClick}
+        onBtnSaveClick={this.onBtnSaveClick}
+      />;
     }
     return (
       <div className="mainbox">

@@ -24,8 +24,13 @@ export class NoteCard extends React.Component {
     if (noteText.length > 40) {
       noteText = noteText.slice(0, 40) + '...';
     }
+    const activeClass = this.props.selected ? ' note-card-list__card-active' : '';
     return (
-      <div className="note-card" data-noteid={this.props.noteid}>
+      <div
+        className={'note-card' + activeClass}
+        data-noteid={this.props.noteid}
+        onClick={() => { this.props.onNoteCardClick(this.props.noteid) }}
+      >
         <h5 className="note-card__note-title">{title}</h5>
         <div className="note-card__note-text">{noteText}</div>
       </div>
