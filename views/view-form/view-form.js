@@ -27,6 +27,7 @@ export class ViewForm extends React.Component {
             <NoteCardList
               notes={this.props.notes}
               selectedNoteId={this.props.selectedNoteId}
+              searchStr={this.props.searchStr}
               onSearchChange={this.props.onSearchChange}
               onNoteCardClick={this.props.onNoteCardClick}
               onNoteCardDoubleClick={this.props.onNoteCardDoubleClick}

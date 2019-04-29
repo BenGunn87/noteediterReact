@@ -106,6 +106,7 @@ export class MainForm extends React.Component {
         onSearchChange={this.onSearchChange}
         onNoteCardClick={this.onNoteCardClick}
         onNoteCardDoubleClick={this.onNoteCardDoubleClick}
+        searchStr={this.state.searchStr}
       />;
     }
     // форма редактирования

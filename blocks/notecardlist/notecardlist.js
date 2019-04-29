@@ -31,7 +31,7 @@ export class NoteCardList extends React.Component {
                 id="search"
                 type="text"
                 name="search"
-                value={null}
+                value={this.props.searchStr}
                 placeholder="Поиск"
                 onChange={this.props.onSearchChange}
               />
