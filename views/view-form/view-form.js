@@ -35,10 +35,16 @@ export class ViewForm extends React.Component {
           </div>
           <div className={'col col--8 heightAll'}>
             <div className="view-form__buttonspanel">
-              <ButtonsPanel btnfirst={btnFirst} btnsecond={btnSecond}/>
+              <ButtonsPanel
+                btnfirst={btnFirst}
+                btnsecond={btnSecond}
+              />
             </div>
             <div className="view-form__viewbox">
-              <ViewBox title={viewCard.title} noteText={viewCard.noteText}/>
+              <ViewBox
+                title={viewCard.title}
+                noteText={viewCard.noteText}
+              />
             </div>
           </div>
         </div>

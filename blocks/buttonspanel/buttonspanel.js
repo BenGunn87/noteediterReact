@@ -17,6 +17,6 @@ export class ButtonsPanel extends React.Component {
           <button className="button__button" id={btnsecond.id} onClick={btnsecond.onClick}>{btnsecond.value}</button>
         </div>
       </div>
-    );
+    )
   }
 }

@@ -9,11 +9,7 @@ import _ from './edit-form.scss';
 export class EditForm extends React.Component {
   constructor (props) {
     super(props);
-    const editNote = this.props.editNote;
-    this.state = {
-      title: editNote.title,
-      noteText: editNote.noteText
-    };
+    this.state = this.props.editNote;
     this.onTitleChange = this.onTitleChange.bind(this);
     this.onNoteTextChange = this.onNoteTextChange.bind(this);
     this.onBtnSaveClick = this.onBtnSaveClick.bind(this);
@@ -27,8 +23,7 @@ export class EditForm extends React.Component {
   onBtnSaveClick (event) {
     this.props.onBtnSaveClick(
       event,
-      this.state.title,
-      this.state.noteText
+      this.state
     )
   }
   render () {

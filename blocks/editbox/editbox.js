@@ -10,17 +10,15 @@ export class EditBox extends React.Component {
       <div className="editbox">
         <div className={'editbox__note-title row'}>
           <div className="textbox">
-            <div className="row">
-              <input
-                className={'u-full-width textbox__input'}
-                id="note-title"
-                type="text"
-                name="note-title"
-                value={this.props.title}
-                placeholder="Заголовок"
-                onChange={this.props.onTitleChange}
-              />
-            </div>
+            <input
+              className={'u-full-width textbox__input'}
+              id="note-title"
+              type="text"
+              name="note-title"
+              value={this.props.title}
+              placeholder="Заголовок"
+              onChange={this.props.onTitleChange}
+            />
           </div>
         </div>
         <div className={'editbox__note-textarea row'}>

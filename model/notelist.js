@@ -63,4 +63,16 @@ export class NoteList {
     }
     return -1;
   }
+  getNoteById (noteid) {
+    if (noteid !== -1) {
+      const index = this.searchNote(noteid);
+      return this.noteList[index];
+    } else {
+      return {
+        noteid: -1,
+        title: '',
+        noteText: ''
+      }
+    }
+  }
 }

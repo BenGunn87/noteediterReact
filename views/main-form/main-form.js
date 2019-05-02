@@ -1,7 +1,7 @@
 import React from 'react'
-import {ViewForm} from '../view-form/view-form'
-import {EditForm} from '../edit-form/edit-form'
-import {NoteList} from '../../model/notelist'
+import { ViewForm } from '../view-form/view-form'
+import { EditForm } from '../edit-form/edit-form'
+import { NoteList } from '../../model/notelist'
 
 /* eslint-disable */
 import _ from './main-form.scss';
@@ -40,22 +40,16 @@ export class MainForm extends React.Component {
   onBtnBackClick (event) {
     this.setState({ activeForm: 'view' });
   }
-  onBtnSaveClick (event, title, noteText) {
+  onBtnSaveClick (event, saveNote) {
     let noteid;
     if (this.state.activeForm === 'add') {
-      const newNote = this.noteList.addNote({
-        title: title,
-        noteText: noteText
-      });
+      const newNote = this.noteList.addNote(saveNote);
       noteid = newNote.noteid;
     }
     if (this.state.activeForm === 'edit') {
-      this.noteList.updNote({
-        noteid: this.state.selectedNoteId,
-        title: title,
-        noteText: noteText
-      });
-      noteid = this.state.selectedNoteId;
+      saveNote.noteid = this.state.selectedNoteId;
+      this.noteList.updNote(saveNote);
+      noteid = saveNote.noteid;
     }
     this.setState({
       activeForm: 'view',
@@ -81,16 +75,7 @@ export class MainForm extends React.Component {
     let activeForm;
     // форма простомтка
     if (this.state.activeForm === 'view') {
-      let viewCard;
-      if (this.state.selectedNoteId !== -1) {
-        const index = this.noteList.searchNote(this.state.selectedNoteId);
-        viewCard = this.noteList.noteList[index];
-      } else {
-        viewCard = {
-          title: '',
-          noteText: ''
-        }
-      }
+      const viewCard = this.noteList.getNoteById(this.state.selectedNoteId);
       const notes = this.state.notes.filter((item) => {
         return (
           item.title.toUpperCase().indexOf(this.state.searchStr.toUpperCase()) !== -1 ||
@@ -111,8 +96,7 @@ export class MainForm extends React.Component {
     }
     // форма редактирования
     if (this.state.activeForm === 'edit') {
-      const index = this.noteList.searchNote(this.state.selectedNoteId);
-      const editNote = this.noteList.noteList[index];
+      const editNote = this.noteList.getNoteById(this.state.selectedNoteId);
       activeForm = <EditForm
         editNote={editNote}
         onBtnSaveClick={this.onBtnSaveClick}

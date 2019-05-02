@@ -11,7 +11,7 @@ export class NoteCard extends React.Component {
     let title = this.props.title;
     let noteText = this.props.noteText;
     if (title.length > TITLE_VIEW_MAX_LEN) {
-      title = title.slice(0, TITLE_VIEW_MAX_LEN - 3 ) + '...';
+      title = title.slice(0, TITLE_VIEW_MAX_LEN - 3) + '...';
     }
     if (noteText.length > NOTETEXT_VIEW_MAX_LEN) {
       noteText = noteText.slice(0, NOTETEXT_VIEW_MAX_LEN - 3) + '...';
